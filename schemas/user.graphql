@@ -1,0 +1,37 @@
+# import Notification from "notification.graphql"
+# import CustomService from "custom_service.graphql"
+# import UserProduct from "user_product.graphql"
+# import Review from "review.graphql"
+
+scalar Date
+scalar DateTime
+
+enum Gender {
+  MALE, FEMALE,
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+type User {
+  id: ID!
+  email: String
+  # password: String
+  name: String
+  nickname: String
+  photo: String
+  birthday: Date
+  gender: Gender
+  phone: String
+  social: String
+  verified: Boolean
+  notifications: [Notification]
+  customServices: [CustomService]
+  userProducts: [UserProduct]
+  reviews: [Review]
+  created: DateTime!
+  updated: DateTime!
+  deleted: DateTime
+}

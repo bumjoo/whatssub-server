@@ -1,0 +1,40 @@
+# import User from "user.graphql"
+# import Notification from "notification.graphql"
+
+input UserCreateInput {
+  email: String
+  password: String
+  name: String
+  nickname: String
+  birthday: Date
+  gender: Gender
+  phone: String
+}
+
+input SocialUserCreateInput {
+  social: String!
+  email: String
+  password: String
+  photo: String
+  name: String
+  nickname: String
+  birthday: Date
+  gender: Gender
+  phone: String
+}
+
+type Query {
+  user(id: ID!): User!
+  users: [User!]!
+}
+
+type Mutation {
+  signUp(user: UserCreateInput!): AuthPayload!
+  signInGoogle(socialUser: SocialUserCreateInput!): AuthPayload
+  signInFacebook(socialUser: SocialUserCreateInput!): AuthPayload
+  addPushToken(token: String!, userId: String!, device: String!, os: String): Notification
+}
+
+type Subscription {
+  userAdded: User
+}

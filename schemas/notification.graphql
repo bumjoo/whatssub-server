@@ -1,0 +1,10 @@
+scalar DateTime
+
+type Notification {
+  id: ID!
+  token: String!
+  device: String
+  os: String
+  created: DateTime!
+  updated: DateTime!
+}

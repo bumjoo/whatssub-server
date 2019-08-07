@@ -1,0 +1,29 @@
+# import SubOption from "sub_option.graphql"
+
+scalar Date
+scalar DateTime
+
+enum Currency {
+  USD, KRW,
+}
+
+enum PeriodType {
+  YEAR, MONTH, DAY
+}
+
+type CustomService {
+  id: ID!
+  name: String!
+  price: Float!
+  currency: Currency
+  periodUnit: Int
+  periodType: PeriodType
+  startBillingDate: Date
+  endBillingDate: Date
+  alertDate: Date
+  memo: String
+  subOption: SubOption
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+}

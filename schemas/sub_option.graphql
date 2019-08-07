@@ -1,0 +1,11 @@
+scalar Date
+scalar DateTime
+
+type SubOption {
+  id: ID!
+  pricePlan: Float
+  pricePlanCurreny: String
+  promotion: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}

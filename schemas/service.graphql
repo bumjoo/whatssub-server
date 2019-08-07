@@ -1,0 +1,27 @@
+# import Product from "product.graphql"
+# import Review from "review.graphql"
+# import SubOption from "sub_option.graphql"
+
+scalar DateTime
+
+# enum Category {
+#   MALE, FEMALE,
+# }
+
+type Service {
+  id: ID!
+  name: String!
+  category: String
+  thumbnail: String!
+  image: String!
+  homepage: String
+  iosAppStoreUrl: String
+  androidPlayStoreUrl: String
+  memo: String
+  products: [Product]
+  reviews: [Review]
+  subOption: SubOption
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+}

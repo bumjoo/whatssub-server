@@ -1,0 +1,13 @@
+scalar Date
+scalar DateTime
+
+type UserProduct {
+  id: ID!
+  startBillingDate: Date
+  endBillingDate: Date
+  alertDate: Date
+  memo: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
