@@ -1,6 +1,6 @@
 # whatssub backend
-[![CircleCI](https://circleci.com/gh/dooboolab/ts-apollo-sequelize.svg?style=shield)](https://circleci.com/gh/dooboolab/ts-apollo-sequelize)
-[![codecov](https://codecov.io/gh/dooboolab/ts-apollo-sequelize/branch/master/graph/badge.svg)](https://codecov.io/gh/dooboolab/ts-apollo-sequelize)
+[![CircleCI](https://circleci.com/gh/whatssub/whatssub-server.svg?style=shield)](https://circleci.com/gh/whatssub/whatssub-server)
+[![codecov](https://codecov.io/gh/whatssub/whatssub-server/branch/master/graph/badge.svg)](https://codecov.io/gh/whatssub/whatssub-server)
 
 > Specification
 * [node](https://nodejs.org)
