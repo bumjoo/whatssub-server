@@ -1,4 +1,4 @@
-# whatssub backend
+# whatssub server
 [![CircleCI](https://circleci.com/gh/whatssub/whatssub-server.svg?style=shield)](https://circleci.com/gh/whatssub/whatssub-server)
 [![codecov](https://codecov.io/gh/whatssub/whatssub-server/branch/master/graph/badge.svg)](https://codecov.io/gh/whatssub/whatssub-server)
 
