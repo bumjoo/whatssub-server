@@ -39,5 +39,16 @@ input ProductCreateInput {
   periodType: PeriodType
   directLink: String
   memo: String
-  subOptionId: ID
+}
+
+input ProductUpdateInput {
+  id: ID!
+  name: String
+  category: String
+  price: Float
+  currency: Currency
+  periodUnit: Int
+  periodType: PeriodType
+  directLink: String
+  memo: String
 }

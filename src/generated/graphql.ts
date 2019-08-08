@@ -102,8 +102,7 @@ export type MutationCreateServiceArgs = {
 };
 
 export type MutationUpdateServiceArgs = {
-  id: Scalars["ID"];
-  service: ServiceCreateInput;
+  service: ServiceUpdateInput;
   subOption?: Maybe<SubOptionCreateInput>;
 };
 
@@ -117,8 +116,7 @@ export type MutationCreateProductArgs = {
 };
 
 export type MutationUpdateProductArgs = {
-  id: Scalars["ID"];
-  product: ProductCreateInput;
+  product: ProductUpdateInput;
   subOption?: Maybe<SubOptionCreateInput>;
 };
 
@@ -168,9 +166,9 @@ export type Product = {
   memo?: Maybe<Scalars["String"]>;
   userProducts?: Maybe<Array<Maybe<UserProduct>>>;
   subOption?: Maybe<SubOption>;
-  createdAt?: Maybe<Scalars["DateTime"]>;
-  updatedAt?: Maybe<Scalars["DateTime"]>;
-  deletedAt?: Maybe<Scalars["DateTime"]>;
+  created?: Maybe<Scalars["DateTime"]>;
+  updated?: Maybe<Scalars["DateTime"]>;
+  deleted?: Maybe<Scalars["DateTime"]>;
 };
 
 export type ProductCreateInput = {
@@ -183,7 +181,18 @@ export type ProductCreateInput = {
   periodType?: Maybe<PeriodType>;
   directLink?: Maybe<Scalars["String"]>;
   memo?: Maybe<Scalars["String"]>;
-  subOptionId?: Maybe<Scalars["ID"]>;
+};
+
+export type ProductUpdateInput = {
+  id: Scalars["ID"];
+  name?: Maybe<Scalars["String"]>;
+  category?: Maybe<Scalars["String"]>;
+  price?: Maybe<Scalars["Float"]>;
+  currency?: Maybe<Currency>;
+  periodUnit?: Maybe<Scalars["Int"]>;
+  periodType?: Maybe<PeriodType>;
+  directLink?: Maybe<Scalars["String"]>;
+  memo?: Maybe<Scalars["String"]>;
 };
 
 export type Query = {
@@ -244,6 +253,18 @@ export type ServiceCreateInput = {
   memo?: Maybe<Scalars["String"]>;
 };
 
+export type ServiceUpdateInput = {
+  id: Scalars["ID"];
+  name?: Maybe<Scalars["String"]>;
+  category?: Maybe<Scalars["String"]>;
+  thumbnail?: Maybe<Scalars["String"]>;
+  image?: Maybe<Scalars["String"]>;
+  homepage?: Maybe<Scalars["String"]>;
+  iosAppStoreUrl?: Maybe<Scalars["String"]>;
+  androidPlayStoreUrl?: Maybe<Scalars["String"]>;
+  memo?: Maybe<Scalars["String"]>;
+};
+
 export type SocialUserCreateInput = {
   social: Scalars["String"];
   email?: Maybe<Scalars["String"]>;
@@ -278,6 +299,9 @@ export type Subscription = {
   serviceAdded?: Maybe<Service>;
   serviceUpdated?: Maybe<Service>;
   serviceDestroyed?: Maybe<Service>;
+  productAdded?: Maybe<Product>;
+  productUpdated?: Maybe<Product>;
+  productDestroyed?: Maybe<Product>;
 };
 
 export type User = {
@@ -422,7 +446,9 @@ export type ResolversTypes = {
   NotificationCreateInput: NotificationCreateInput;
   ServiceCreateInput: ServiceCreateInput;
   SubOptionCreateInput: SubOptionCreateInput;
+  ServiceUpdateInput: ServiceUpdateInput;
   ProductCreateInput: ProductCreateInput;
+  ProductUpdateInput: ProductUpdateInput;
   Subscription: ResolverTypeWrapper<{}>;
 };
 
@@ -456,7 +482,9 @@ export type ResolversParentTypes = {
   NotificationCreateInput: NotificationCreateInput;
   ServiceCreateInput: ServiceCreateInput;
   SubOptionCreateInput: SubOptionCreateInput;
+  ServiceUpdateInput: ServiceUpdateInput;
   ProductCreateInput: ProductCreateInput;
+  ProductUpdateInput: ProductUpdateInput;
   Subscription: {};
 };
 
@@ -666,17 +694,17 @@ export type ProductResolvers<
     ParentType,
     ContextType
   >;
-  createdAt?: Resolver<
+  created?: Resolver<
     Maybe<ResolversTypes["DateTime"]>,
     ParentType,
     ContextType
   >;
-  updatedAt?: Resolver<
+  updated?: Resolver<
     Maybe<ResolversTypes["DateTime"]>,
     ParentType,
     ContextType
   >;
-  deletedAt?: Resolver<
+  deleted?: Resolver<
     Maybe<ResolversTypes["DateTime"]>,
     ParentType,
     ContextType
@@ -835,6 +863,21 @@ export type SubscriptionResolvers<
   >;
   serviceDestroyed?: SubscriptionResolver<
     Maybe<ResolversTypes["Service"]>,
+    ParentType,
+    ContextType
+  >;
+  productAdded?: SubscriptionResolver<
+    Maybe<ResolversTypes["Product"]>,
+    ParentType,
+    ContextType
+  >;
+  productUpdated?: SubscriptionResolver<
+    Maybe<ResolversTypes["Product"]>,
+    ParentType,
+    ContextType
+  >;
+  productDestroyed?: SubscriptionResolver<
+    Maybe<ResolversTypes["Product"]>,
     ParentType,
     ContextType
   >;

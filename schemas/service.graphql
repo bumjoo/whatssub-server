@@ -36,3 +36,15 @@ input ServiceCreateInput {
   androidPlayStoreUrl: String
   memo: String
 }
+
+input ServiceUpdateInput {
+  id: ID!
+  name: String
+  category: String
+  thumbnail: String
+  image: String
+  homepage: String
+  iosAppStoreUrl: String
+  androidPlayStoreUrl: String
+  memo: String
+}

@@ -21,10 +21,10 @@ type Mutation {
   signInFacebook(socialUser: SocialUserCreateInput!): AuthPayload
   addPushToken(notification: NotificationCreateInput!): Notification
   createService(service: ServiceCreateInput!, subOption: SubOptionCreateInput): Service!
-  updateService(id: ID!, service: ServiceCreateInput!, subOption: SubOptionCreateInput): Service!
+  updateService(service: ServiceUpdateInput!, subOption: SubOptionCreateInput): Service!
   deleteService(id: ID!): Service!
   createProduct(product: ProductCreateInput!, subOption: SubOptionCreateInput): Product!
-  updateProduct(id: ID!, product: ProductCreateInput!, subOption: SubOptionCreateInput): Product!
+  updateProduct(product: ProductUpdateInput!, subOption: SubOptionCreateInput): Product!
   deleteProduct(id: ID!): Product!
 }
 
@@ -33,4 +33,7 @@ type Subscription {
   serviceAdded: Service
   serviceUpdated: Service
   serviceDestroyed: Service
+  productAdded: Product
+  productUpdated: Product
+  productDestroyed: Product
 }

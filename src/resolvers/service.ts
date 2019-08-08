@@ -20,7 +20,7 @@ const resolver: Resolvers = {
   },
   Mutation: {
     createService: async (_, args, { user, models, pubsub }) => {
-      // if (!user) throw new AuthenticationError('User is not logged in');
+      if (!user) throw new AuthenticationError('User is not logged in');
 
       try {
         const service = await models.Service.create(args.service, { raw: true });
@@ -43,17 +43,55 @@ const resolver: Resolvers = {
       if (!user) throw new AuthenticationError('User is not logged in');
 
       try {
-        const service = await models.Service.update(args, { raw: true });
+        models.Service.update(
+          args,
+          {
+            where: {
+              id: args.service.id,
+            },
+          },
+          { raw: true }
+        );
         let subOption;
         if (args.subOption) {
           subOption = await models.SubOption.findOne({
-            where: {
-              serviceId: service.id,
-            },
+            where: { serviceId: args.service.id },
             raw: true,
-          }, { raw: true });
-          service.subOption = subOption;
+          });
+          if (subOption) {
+            await models.SubOption.update(
+              {
+                ...args.subOption,
+              },
+              {
+                where: {
+                  serviceId: args.service.id,
+                },
+              },
+              { raw: true },
+            );
+            subOption = await models.SubOption.findOne({
+              where: { serviceId: args.service.id },
+              raw: true,
+            });
+          } else {
+            subOption = await models.SubOption.create(
+              {
+                ...args.subOption,
+                serviceId: args.service.id,
+              },
+              { raw: true },
+            );
+          }
         }
+
+        const service = await models.Service.findOne({
+          where: {
+            id: args.service.id,
+          },
+          raw: true,
+        });
+        service.subOption = subOption;
 
         pubsub.publish(SERVICE_UPDATED, { service });
         return service;
@@ -62,7 +100,7 @@ const resolver: Resolvers = {
       }
     },
     deleteService: async (_, args, { user, models, pubsub }) => {
-      // if (!user) throw new AuthenticationError('User is not logged in');
+      if (!user) throw new AuthenticationError('User is not logged in');
 
       try {
         const service = await models.Service.findOne({
