@@ -145,6 +145,15 @@ const resolver: Resolvers = {
       subscribe: (_, args, { pubsub }) => pubsub.asyncIterator([PRODUCT_DELETED]),
     },
   },
+  Product: {
+    subOption: (_, args, { models }, info) => {
+      return models.SubOption.findOne({
+        where: {
+          productId: _.id,
+        },
+      });
+    },
+  },
 };
 
 export default resolver;

@@ -139,6 +139,29 @@ const resolver: Resolvers = {
       subscribe: (_, args, { pubsub }) => pubsub.asyncIterator([SERVICE_DELETED]),
     },
   },
+  Service: {
+    subOption: (_, args, { models }, info) => {
+      return models.SubOption.findOne({
+        where: {
+          serviceId: _.id,
+        },
+      });
+    },
+    products: (_, args, { models }, info) => {
+      return models.Product.findAll({
+        where: {
+          serviceId: _.id,
+        },
+      });
+    },
+    reviews: (_, args, { models }, info) => {
+      return models.Reviews.findAll({
+        where: {
+          serviceId: _.id,
+        },
+      });
+    },
+  },
 };
 
 export default resolver;
