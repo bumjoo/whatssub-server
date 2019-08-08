@@ -27,3 +27,15 @@ type CustomService {
   updatedAt: DateTime
   deletedAt: DateTime
 }
+
+input CustomServiceCreateInput {
+  name: String!
+  price: Float!
+  currency: Currency
+  periodUnit: Int
+  periodType: PeriodType
+  startBillingDate: Date
+  endBillingDate: Date
+  alertDate: Date
+  memo: String
+}

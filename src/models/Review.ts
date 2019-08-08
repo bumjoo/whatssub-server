@@ -21,8 +21,9 @@ Review.init({
   sequelize,
   modelName: 'review',
   timestamps: true,
-  createdAt: 'created',
-  updatedAt: 'updated',
+  // createdAt: 'created',
+  // updatedAt: 'updated',
+  paranoid: true,
 });
 
 User.hasMany(Review);

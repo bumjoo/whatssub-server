@@ -35,8 +35,9 @@ SubOption.init({
   sequelize,
   modelName: 'sub_option',
   timestamps: true,
-  createdAt: 'created',
-  updatedAt: 'updated',
+  // createdAt: 'created',
+  // updatedAt: 'updated',
+  paranoid: true,
 });
 
 Product.hasOne(SubOption);

@@ -35,3 +35,25 @@ type User {
   updated: DateTime!
   deleted: DateTime
 }
+
+input UserCreateInput {
+  email: String
+  password: String
+  name: String
+  nickname: String
+  birthday: Date
+  gender: Gender
+  phone: String
+}
+
+input SocialUserCreateInput {
+  social: String!
+  email: String
+  password: String
+  photo: String
+  name: String
+  nickname: String
+  birthday: Date
+  gender: Gender
+  phone: String
+}

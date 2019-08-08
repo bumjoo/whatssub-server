@@ -24,7 +24,20 @@ type Product {
   memo: String
   userProducts: [UserProduct]
   subOption: SubOption
-  createdAt: DateTime
-  updatedAt: DateTime
-  deletedAt: DateTime
+  created: DateTime
+  updated: DateTime
+  deleted: DateTime
+}
+
+input ProductCreateInput {
+  serviceId: ID!
+  name: String!
+  category: String
+  price: Float!
+  currency: Currency
+  periodUnit: Int
+  periodType: PeriodType
+  directLink: String
+  memo: String
+  subOptionId: ID
 }

@@ -8,3 +8,10 @@ type Notification {
   created: DateTime!
   updated: DateTime!
 }
+
+input NotificationCreateInput {
+  userId: ID!
+  token: String!
+  device: String
+  os: String
+}

@@ -25,3 +25,14 @@ type Service {
   updatedAt: DateTime
   deletedAt: DateTime
 }
+
+input ServiceCreateInput {
+  name: String!
+  category: String
+  thumbnail: String!
+  image: String!
+  homepage: String
+  iosAppStoreUrl: String
+  androidPlayStoreUrl: String
+  memo: String
+}

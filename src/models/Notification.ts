@@ -22,8 +22,9 @@ Notification.init({
   sequelize,
   modelName: 'notification',
   timestamps: true,
-  createdAt: 'created',
-  updatedAt: 'updated',
+  // createdAt: 'created',
+  // updatedAt: 'updated',
+  paranoid: true,
 });
 
 User.hasMany(Notification);

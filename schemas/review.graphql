@@ -9,3 +9,11 @@ type Review {
   createdAt: DateTime
   updatedAt: DateTime
 }
+
+input ReviewCreateInput {
+  serviceId: String!
+  userId: String!
+  title: String
+  content: String
+  rating: Float!
+}

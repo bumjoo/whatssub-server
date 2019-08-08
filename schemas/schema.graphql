@@ -1,28 +1,9 @@
+# import Admin from "admin.graphql"
 # import User from "user.graphql"
 # import Notification from "notification.graphql"
+# import SubOption from "sub_option.graphql"
 # import Service from "service.graphql"
-
-input UserCreateInput {
-  email: String
-  password: String
-  name: String
-  nickname: String
-  birthday: Date
-  gender: Gender
-  phone: String
-}
-
-input SocialUserCreateInput {
-  social: String!
-  email: String
-  password: String
-  photo: String
-  name: String
-  nickname: String
-  birthday: Date
-  gender: Gender
-  phone: String
-}
+# import Product from "Product.graphql"
 
 type Query {
   user(id: ID!): User!
@@ -34,19 +15,22 @@ type Query {
 }
 
 type Mutation {
+  signInAdmin(email: String!, password: String!): Admin
   signUp(user: UserCreateInput!): AuthPayload!
   signInGoogle(socialUser: SocialUserCreateInput!): AuthPayload
   signInFacebook(socialUser: SocialUserCreateInput!): AuthPayload
-  addPushToken(token: String!, userId: String!, device: String!, os: String): Notification
-  createService(id: ID!): Service!
-  updateService(id: ID!): Service!
+  addPushToken(notification: NotificationCreateInput!): Notification
+  createService(service: ServiceCreateInput!, subOption: SubOptionCreateInput): Service!
+  updateService(id: ID!, service: ServiceCreateInput!, subOption: SubOptionCreateInput): Service!
   deleteService(id: ID!): Service!
-  createProduct(id: ID!): Product!
-  updateProduct(id: ID!): Product!
+  createProduct(product: ProductCreateInput!, subOption: SubOptionCreateInput): Product!
+  updateProduct(id: ID!, product: ProductCreateInput!, subOption: SubOptionCreateInput): Product!
   deleteProduct(id: ID!): Product!
 }
 
 type Subscription {
   userAdded: User
   serviceAdded: Service
+  serviceUpdated: Service
+  serviceDestroyed: Service
 }

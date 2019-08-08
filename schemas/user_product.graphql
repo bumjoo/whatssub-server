@@ -11,3 +11,11 @@ type UserProduct {
   updatedAt: DateTime
   deletedAt: DateTime
 }
+
+input UserProductCreateInput {
+  userId: String!
+  startBillingDate: Date
+  endBillingDate: Date
+  alertDate: Date
+  memo: String
+}

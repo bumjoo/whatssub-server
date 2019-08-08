@@ -65,9 +65,9 @@ User.init({
   sequelize,
   modelName: 'user',
   timestamps: true,
-  createdAt: 'created',
-  updatedAt: 'updated',
-  deletedAt: 'deleted',
+  // createdAt: 'created',
+  // updatedAt: 'updated',
+  paranoid: true,
 });
 
 export default User;

@@ -38,9 +38,9 @@ Product.init({
   sequelize,
   modelName: 'product',
   timestamps: true,
-  createdAt: 'created',
-  updatedAt: 'updated',
-  deletedAt: 'deleted',
+  // createdAt: 'created',
+  // updatedAt: 'updated',
+  paranoid: true,
 });
 
 Service.hasMany(Product);

@@ -9,3 +9,9 @@ type SubOption {
   createdAt: DateTime
   updatedAt: DateTime
 }
+
+input SubOptionCreateInput {
+  pricePlan: Float
+  pricePlanCurreny: String
+  promotion: String
+}

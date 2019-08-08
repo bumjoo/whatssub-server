@@ -15,6 +15,17 @@ export type Scalars = {
   DateTime: any;
 };
 
+export type Admin = {
+  __typename?: "Admin";
+  id: Scalars["ID"];
+  email: Scalars["String"];
+  name?: Maybe<Scalars["String"]>;
+  privilege: Privilege;
+  created: Scalars["DateTime"];
+  updated: Scalars["DateTime"];
+  deleted?: Maybe<Scalars["DateTime"]>;
+};
+
 export type AuthPayload = {
   __typename?: "AuthPayload";
   token: Scalars["String"];
@@ -51,6 +62,7 @@ export enum Gender {
 
 export type Mutation = {
   __typename?: "Mutation";
+  signInAdmin?: Maybe<Admin>;
   signUp: AuthPayload;
   signInGoogle?: Maybe<AuthPayload>;
   signInFacebook?: Maybe<AuthPayload>;
@@ -61,6 +73,11 @@ export type Mutation = {
   createProduct: Product;
   updateProduct: Product;
   deleteProduct: Product;
+};
+
+export type MutationSignInAdminArgs = {
+  email: Scalars["String"];
+  password: Scalars["String"];
 };
 
 export type MutationSignUpArgs = {
@@ -76,18 +93,18 @@ export type MutationSignInFacebookArgs = {
 };
 
 export type MutationAddPushTokenArgs = {
-  token: Scalars["String"];
-  userId: Scalars["String"];
-  device: Scalars["String"];
-  os?: Maybe<Scalars["String"]>;
+  notification: NotificationCreateInput;
 };
 
 export type MutationCreateServiceArgs = {
-  id: Scalars["ID"];
+  service: ServiceCreateInput;
+  subOption?: Maybe<SubOptionCreateInput>;
 };
 
 export type MutationUpdateServiceArgs = {
   id: Scalars["ID"];
+  service: ServiceCreateInput;
+  subOption?: Maybe<SubOptionCreateInput>;
 };
 
 export type MutationDeleteServiceArgs = {
@@ -95,11 +112,14 @@ export type MutationDeleteServiceArgs = {
 };
 
 export type MutationCreateProductArgs = {
-  id: Scalars["ID"];
+  product: ProductCreateInput;
+  subOption?: Maybe<SubOptionCreateInput>;
 };
 
 export type MutationUpdateProductArgs = {
   id: Scalars["ID"];
+  product: ProductCreateInput;
+  subOption?: Maybe<SubOptionCreateInput>;
 };
 
 export type MutationDeleteProductArgs = {
@@ -116,10 +136,23 @@ export type Notification = {
   updated: Scalars["DateTime"];
 };
 
+export type NotificationCreateInput = {
+  userId: Scalars["ID"];
+  token: Scalars["String"];
+  device?: Maybe<Scalars["String"]>;
+  os?: Maybe<Scalars["String"]>;
+};
+
 export enum PeriodType {
   Year = "YEAR",
   Month = "MONTH",
   Day = "DAY"
+}
+
+export enum Privilege {
+  Admin = "ADMIN",
+  Member = "MEMBER",
+  Viewer = "VIEWER"
 }
 
 export type Product = {
@@ -138,6 +171,19 @@ export type Product = {
   createdAt?: Maybe<Scalars["DateTime"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
   deletedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type ProductCreateInput = {
+  serviceId: Scalars["ID"];
+  name: Scalars["String"];
+  category?: Maybe<Scalars["String"]>;
+  price: Scalars["Float"];
+  currency?: Maybe<Currency>;
+  periodUnit?: Maybe<Scalars["Int"]>;
+  periodType?: Maybe<PeriodType>;
+  directLink?: Maybe<Scalars["String"]>;
+  memo?: Maybe<Scalars["String"]>;
+  subOptionId?: Maybe<Scalars["ID"]>;
 };
 
 export type Query = {
@@ -187,6 +233,17 @@ export type Service = {
   deletedAt?: Maybe<Scalars["DateTime"]>;
 };
 
+export type ServiceCreateInput = {
+  name: Scalars["String"];
+  category?: Maybe<Scalars["String"]>;
+  thumbnail: Scalars["String"];
+  image: Scalars["String"];
+  homepage?: Maybe<Scalars["String"]>;
+  iosAppStoreUrl?: Maybe<Scalars["String"]>;
+  androidPlayStoreUrl?: Maybe<Scalars["String"]>;
+  memo?: Maybe<Scalars["String"]>;
+};
+
 export type SocialUserCreateInput = {
   social: Scalars["String"];
   email?: Maybe<Scalars["String"]>;
@@ -209,10 +266,18 @@ export type SubOption = {
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
+export type SubOptionCreateInput = {
+  pricePlan?: Maybe<Scalars["Float"]>;
+  pricePlanCurreny?: Maybe<Scalars["String"]>;
+  promotion?: Maybe<Scalars["String"]>;
+};
+
 export type Subscription = {
   __typename?: "Subscription";
   userAdded?: Maybe<User>;
   serviceAdded?: Maybe<Service>;
+  serviceUpdated?: Maybe<Service>;
+  serviceDestroyed?: Maybe<Service>;
 };
 
 export type User = {
@@ -349,9 +414,15 @@ export type ResolversTypes = {
   Service: ResolverTypeWrapper<Service>;
   Product: ResolverTypeWrapper<Product>;
   Mutation: ResolverTypeWrapper<{}>;
+  Admin: ResolverTypeWrapper<Admin>;
+  Privilege: Privilege;
   UserCreateInput: UserCreateInput;
   AuthPayload: ResolverTypeWrapper<AuthPayload>;
   SocialUserCreateInput: SocialUserCreateInput;
+  NotificationCreateInput: NotificationCreateInput;
+  ServiceCreateInput: ServiceCreateInput;
+  SubOptionCreateInput: SubOptionCreateInput;
+  ProductCreateInput: ProductCreateInput;
   Subscription: ResolverTypeWrapper<{}>;
 };
 
@@ -377,10 +448,33 @@ export type ResolversParentTypes = {
   Service: Service;
   Product: Product;
   Mutation: {};
+  Admin: Admin;
+  Privilege: Privilege;
   UserCreateInput: UserCreateInput;
   AuthPayload: AuthPayload;
   SocialUserCreateInput: SocialUserCreateInput;
+  NotificationCreateInput: NotificationCreateInput;
+  ServiceCreateInput: ServiceCreateInput;
+  SubOptionCreateInput: SubOptionCreateInput;
+  ProductCreateInput: ProductCreateInput;
   Subscription: {};
+};
+
+export type AdminResolvers<
+  ContextType = any,
+  ParentType = ResolversParentTypes["Admin"]
+> = {
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  privilege?: Resolver<ResolversTypes["Privilege"], ParentType, ContextType>;
+  created?: Resolver<ResolversTypes["DateTime"], ParentType, ContextType>;
+  updated?: Resolver<ResolversTypes["DateTime"], ParentType, ContextType>;
+  deleted?: Resolver<
+    Maybe<ResolversTypes["DateTime"]>,
+    ParentType,
+    ContextType
+  >;
 };
 
 export type AuthPayloadResolvers<
@@ -457,6 +551,12 @@ export type MutationResolvers<
   ContextType = any,
   ParentType = ResolversParentTypes["Mutation"]
 > = {
+  signInAdmin?: Resolver<
+    Maybe<ResolversTypes["Admin"]>,
+    ParentType,
+    ContextType,
+    MutationSignInAdminArgs
+  >;
   signUp?: Resolver<
     ResolversTypes["AuthPayload"],
     ParentType,
@@ -728,6 +828,16 @@ export type SubscriptionResolvers<
     ParentType,
     ContextType
   >;
+  serviceUpdated?: SubscriptionResolver<
+    Maybe<ResolversTypes["Service"]>,
+    ParentType,
+    ContextType
+  >;
+  serviceDestroyed?: SubscriptionResolver<
+    Maybe<ResolversTypes["Service"]>,
+    ParentType,
+    ContextType
+  >;
 };
 
 export type UserResolvers<
@@ -812,6 +922,7 @@ export type UserProductResolvers<
 };
 
 export type Resolvers<ContextType = any> = {
+  Admin?: AdminResolvers<ContextType>;
   AuthPayload?: AuthPayloadResolvers<ContextType>;
   CustomService?: CustomServiceResolvers<ContextType>;
   Date?: GraphQLScalarType;
