@@ -1,16 +1,16 @@
 import * as cors from 'cors';
-import * as path from 'path';
-import * as jwt from 'jsonwebtoken';
 import * as express from 'express';
+import * as jwt from 'jsonwebtoken';
+import * as path from 'path';
 
-import { Model } from 'sequelize';
-import { importSchema } from 'graphql-import';
-import { createServer } from 'http';
 import { ApolloServer, PubSub } from 'apollo-server-express';
-import { fileLoader, mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
+import { fileLoader, mergeResolvers, mergeTypes } from 'merge-graphql-schemas';
 import { Http2Server } from 'http2';
-
+import { Model } from 'sequelize';
 import { Role } from './types';
+import { createServer } from 'http';
+import { importSchema } from 'graphql-import';
+
 import models from './models';
 require('dotenv').config();
 
@@ -53,7 +53,7 @@ const getUser = async (token: string, models) => {
 
 const typeDefs = importSchema('schemas/schema.graphql');
 
-async function startServer (): Promise<Http2Server> {
+async function startServer(): Promise<Http2Server> {
   const apollo = new ApolloServer({
     // typeDefs: './schema.graphql',
     // middlewares: [authMiddleware(JWT_SECRET)],
@@ -74,7 +74,9 @@ async function startServer (): Promise<Http2Server> {
     },
     resolvers,
     subscriptions: {
-      onConnect: () => console.log('Connected to websocket'),
+      onConnect: () => {
+        // console.log('Connected to websocket')
+      },
     },
   });
 
@@ -90,7 +92,8 @@ async function startServer (): Promise<Http2Server> {
   apollo.installSubscriptionHandlers(httpServer);
 
   const server = httpServer.listen({ port: PORT }, () => {
-    console.log(`🚀 Server ready at http://localhost:${PORT}${apollo.graphqlPath}`);
+    process.stdout.write(`🚀 Server ready at http://localhost:${PORT}${apollo.graphqlPath}`);
+    // console.log(`🚀 Server ready at http://localhost:${PORT}${apollo.graphqlPath}`);
   });
 
   return server;

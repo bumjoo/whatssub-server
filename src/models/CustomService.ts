@@ -1,17 +1,17 @@
 import {
-  Model,
-  STRING,
-  UUID,
-  UUIDV4,
-  INTEGER,
+  DATE,
   DECIMAL,
   ENUM,
+  INTEGER,
+  Model,
+  STRING,
   TEXT,
-  DATE,
+  UUID,
+  UUIDV4,
 } from 'sequelize';
 
-import sequelize from '../db';
 import User from './User';
+import sequelize from '../db';
 
 class CustomService extends Model {};
 CustomService.init({

@@ -1,7 +1,7 @@
-import { Model, STRING, UUID, UUIDV4, DECIMAL } from 'sequelize';
+import { DECIMAL, Model, STRING, UUID, UUIDV4 } from 'sequelize';
 
-import sequelize from '../db';
 import User from './User';
+import sequelize from '../db';
 
 class Review extends Model {};
 Review.init({

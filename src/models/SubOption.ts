@@ -1,18 +1,18 @@
 import {
-  Model,
-  UUID,
-  UUIDV4,
-  INTEGER,
-  ENUM,
   DATE,
   DECIMAL,
+  ENUM,
+  INTEGER,
+  Model,
   STRING,
+  UUID,
+  UUIDV4,
 } from 'sequelize';
 
-import sequelize from '../db';
-import Service from './Service';
-import Product from './Product';
 import CustomService from './CustomService';
+import Product from './Product';
+import Service from './Service';
+import sequelize from '../db';
 
 class SubOption extends Model {};
 SubOption.init({

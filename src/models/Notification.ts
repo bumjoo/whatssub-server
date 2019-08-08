@@ -1,7 +1,7 @@
 import { DataTypes, Model, STRING, UUID, UUIDV4 } from 'sequelize';
 
-import sequelize from '../db';
 import User from './User';
+import sequelize from '../db';
 
 class Notification extends Model {};
 Notification.init({

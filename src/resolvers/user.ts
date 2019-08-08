@@ -1,6 +1,6 @@
 import * as jwt from 'jsonwebtoken';
-import { AuthenticationError } from 'apollo-server-express';
 import { Resolvers, UserResolvers } from '../generated/graphql';
+import { AuthenticationError } from 'apollo-server-express';
 import { Role } from '../types';
 
 const USER_ADDED = 'USER_ADDED';

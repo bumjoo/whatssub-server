@@ -1,7 +1,7 @@
-import { request } from 'graphql-request';
-import { startServer } from '../src/app';
 import { Http2Server } from 'http2';
+import { request } from 'graphql-request';
 import sequelize from '../src/db';
+import { startServer } from '../src/app';
 
 const port = 4000;
 const testHost = `http://localhost:${port}/graphql`;
@@ -34,7 +34,6 @@ describe('Resolver - User', () => {
 
   it('should signUp user', async () => {
     const response: any = await request(testHost, mutation);
-    console.log('response', JSON.stringify(response));
 
     expect(response).toHaveProperty('signUp');
     expect(response.signUp).toHaveProperty('token');

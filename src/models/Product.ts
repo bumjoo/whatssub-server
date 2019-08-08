@@ -1,7 +1,7 @@
-import { Model, STRING, UUID, UUIDV4, INTEGER, DECIMAL, ENUM, TEXT } from 'sequelize';
+import { DECIMAL, ENUM, INTEGER, Model, STRING, TEXT, UUID, UUIDV4 } from 'sequelize';
 
-import sequelize from '../db';
 import Service from './Service';
+import sequelize from '../db';
 
 class Product extends Model {};
 Product.init({

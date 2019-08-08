@@ -1,17 +1,17 @@
 import {
+  DATE,
+  ENUM,
+  INTEGER,
   Model,
   STRING,
+  TEXT,
   UUID,
   UUIDV4,
-  INTEGER,
-  ENUM,
-  DATE,
-  TEXT,
 } from 'sequelize';
 
-import sequelize from '../db';
-import User from './User';
 import Product from './Product';
+import User from './User';
+import sequelize from '../db';
 
 class UserProduct extends Model {};
 UserProduct.init({

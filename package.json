@@ -1,9 +1,9 @@
 {
-  "name": "whatssub-backend",
+  "name": "whatssub-server",
   "version": "0.0.1",
   "description": "Graphql Yoga Typescript Example",
   "main": "src/server.ts",
-  "repository": "https://github.com/dooboolab/whatssub-backend",
+  "repository": "https://github.com/whatssub/whatssub-server",
   "author": "dooboolab",
   "license": "MIT",
   "scripts": {

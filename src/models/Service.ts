@@ -1,4 +1,4 @@
-import { DataTypes, Model, STRING, UUID, UUIDV4, TEXT } from 'sequelize';
+import { DataTypes, Model, STRING, TEXT, UUID, UUIDV4 } from 'sequelize';
 
 import sequelize from '../db';
 
