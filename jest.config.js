@@ -8,6 +8,7 @@ module.exports = {
     'ts',
     'js',
     'json',
+    'graphql',
   ],
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
