@@ -3,7 +3,7 @@
 # import Notification from "notification.graphql"
 # import SubOption from "sub_option.graphql"
 # import Service from "service.graphql"
-# import Product from "Product.graphql"
+# import Product from "product.graphql"
 
 type Query {
   user(id: ID!): User!
