@@ -55,6 +55,12 @@ export type Mutation = {
   signInGoogle?: Maybe<AuthPayload>;
   signInFacebook?: Maybe<AuthPayload>;
   addPushToken?: Maybe<Notification>;
+  createService: Service;
+  updateService: Service;
+  deleteService: Service;
+  createProduct: Product;
+  updateProduct: Product;
+  deleteProduct: Product;
 };
 
 export type MutationSignUpArgs = {
@@ -76,6 +82,30 @@ export type MutationAddPushTokenArgs = {
   os?: Maybe<Scalars["String"]>;
 };
 
+export type MutationCreateServiceArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationUpdateServiceArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationDeleteServiceArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationCreateProductArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationUpdateProductArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationDeleteProductArgs = {
+  id: Scalars["ID"];
+};
+
 export type Notification = {
   __typename?: "Notification";
   id: Scalars["ID"];
@@ -92,13 +122,39 @@ export enum PeriodType {
   Day = "DAY"
 }
 
+export type Product = {
+  __typename?: "Product";
+  id: Scalars["ID"];
+  name: Scalars["String"];
+  category?: Maybe<Scalars["String"]>;
+  price: Scalars["Float"];
+  currency?: Maybe<Currency>;
+  periodUnit?: Maybe<Scalars["Int"]>;
+  periodType?: Maybe<PeriodType>;
+  directLink?: Maybe<Scalars["String"]>;
+  memo?: Maybe<Scalars["String"]>;
+  userProducts?: Maybe<Array<Maybe<UserProduct>>>;
+  subOption?: Maybe<SubOption>;
+  createdAt?: Maybe<Scalars["DateTime"]>;
+  updatedAt?: Maybe<Scalars["DateTime"]>;
+  deletedAt?: Maybe<Scalars["DateTime"]>;
+};
+
 export type Query = {
   __typename?: "Query";
   user: User;
   users: Array<User>;
+  service: Service;
+  services: Array<Service>;
+  product: Product;
+  products: Array<Product>;
 };
 
 export type QueryUserArgs = {
+  id: Scalars["ID"];
+};
+
+export type QueryServiceArgs = {
   id: Scalars["ID"];
 };
 
@@ -110,6 +166,25 @@ export type Review = {
   rating: Scalars["Float"];
   createdAt?: Maybe<Scalars["DateTime"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type Service = {
+  __typename?: "Service";
+  id: Scalars["ID"];
+  name: Scalars["String"];
+  category?: Maybe<Scalars["String"]>;
+  thumbnail: Scalars["String"];
+  image: Scalars["String"];
+  homepage?: Maybe<Scalars["String"]>;
+  iosAppStoreUrl?: Maybe<Scalars["String"]>;
+  androidPlayStoreUrl?: Maybe<Scalars["String"]>;
+  memo?: Maybe<Scalars["String"]>;
+  products?: Maybe<Array<Maybe<Product>>>;
+  reviews?: Maybe<Array<Maybe<Review>>>;
+  subOption?: Maybe<SubOption>;
+  createdAt?: Maybe<Scalars["DateTime"]>;
+  updatedAt?: Maybe<Scalars["DateTime"]>;
+  deletedAt?: Maybe<Scalars["DateTime"]>;
 };
 
 export type SocialUserCreateInput = {
@@ -137,6 +212,7 @@ export type SubOption = {
 export type Subscription = {
   __typename?: "Subscription";
   userAdded?: Maybe<User>;
+  serviceAdded?: Maybe<Service>;
 };
 
 export type User = {
@@ -270,6 +346,8 @@ export type ResolversTypes = {
   SubOption: ResolverTypeWrapper<SubOption>;
   UserProduct: ResolverTypeWrapper<UserProduct>;
   Review: ResolverTypeWrapper<Review>;
+  Service: ResolverTypeWrapper<Service>;
+  Product: ResolverTypeWrapper<Product>;
   Mutation: ResolverTypeWrapper<{}>;
   UserCreateInput: UserCreateInput;
   AuthPayload: ResolverTypeWrapper<AuthPayload>;
@@ -296,6 +374,8 @@ export type ResolversParentTypes = {
   SubOption: SubOption;
   UserProduct: UserProduct;
   Review: Review;
+  Service: Service;
+  Product: Product;
   Mutation: {};
   UserCreateInput: UserCreateInput;
   AuthPayload: AuthPayload;
@@ -401,6 +481,42 @@ export type MutationResolvers<
     ContextType,
     MutationAddPushTokenArgs
   >;
+  createService?: Resolver<
+    ResolversTypes["Service"],
+    ParentType,
+    ContextType,
+    MutationCreateServiceArgs
+  >;
+  updateService?: Resolver<
+    ResolversTypes["Service"],
+    ParentType,
+    ContextType,
+    MutationUpdateServiceArgs
+  >;
+  deleteService?: Resolver<
+    ResolversTypes["Service"],
+    ParentType,
+    ContextType,
+    MutationDeleteServiceArgs
+  >;
+  createProduct?: Resolver<
+    ResolversTypes["Product"],
+    ParentType,
+    ContextType,
+    MutationCreateProductArgs
+  >;
+  updateProduct?: Resolver<
+    ResolversTypes["Product"],
+    ParentType,
+    ContextType,
+    MutationUpdateProductArgs
+  >;
+  deleteProduct?: Resolver<
+    ResolversTypes["Product"],
+    ParentType,
+    ContextType,
+    MutationDeleteProductArgs
+  >;
 };
 
 export type NotificationResolvers<
@@ -415,6 +531,58 @@ export type NotificationResolvers<
   updated?: Resolver<ResolversTypes["DateTime"], ParentType, ContextType>;
 };
 
+export type ProductResolvers<
+  ContextType = any,
+  ParentType = ResolversParentTypes["Product"]
+> = {
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  category?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  price?: Resolver<ResolversTypes["Float"], ParentType, ContextType>;
+  currency?: Resolver<
+    Maybe<ResolversTypes["Currency"]>,
+    ParentType,
+    ContextType
+  >;
+  periodUnit?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+  periodType?: Resolver<
+    Maybe<ResolversTypes["PeriodType"]>,
+    ParentType,
+    ContextType
+  >;
+  directLink?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  memo?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  userProducts?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes["UserProduct"]>>>,
+    ParentType,
+    ContextType
+  >;
+  subOption?: Resolver<
+    Maybe<ResolversTypes["SubOption"]>,
+    ParentType,
+    ContextType
+  >;
+  createdAt?: Resolver<
+    Maybe<ResolversTypes["DateTime"]>,
+    ParentType,
+    ContextType
+  >;
+  updatedAt?: Resolver<
+    Maybe<ResolversTypes["DateTime"]>,
+    ParentType,
+    ContextType
+  >;
+  deletedAt?: Resolver<
+    Maybe<ResolversTypes["DateTime"]>,
+    ParentType,
+    ContextType
+  >;
+};
+
 export type QueryResolvers<
   ContextType = any,
   ParentType = ResolversParentTypes["Query"]
@@ -426,6 +594,23 @@ export type QueryResolvers<
     QueryUserArgs
   >;
   users?: Resolver<Array<ResolversTypes["User"]>, ParentType, ContextType>;
+  service?: Resolver<
+    ResolversTypes["Service"],
+    ParentType,
+    ContextType,
+    QueryServiceArgs
+  >;
+  services?: Resolver<
+    Array<ResolversTypes["Service"]>,
+    ParentType,
+    ContextType
+  >;
+  product?: Resolver<ResolversTypes["Product"], ParentType, ContextType>;
+  products?: Resolver<
+    Array<ResolversTypes["Product"]>,
+    ParentType,
+    ContextType
+  >;
 };
 
 export type ReviewResolvers<
@@ -442,6 +627,59 @@ export type ReviewResolvers<
     ContextType
   >;
   updatedAt?: Resolver<
+    Maybe<ResolversTypes["DateTime"]>,
+    ParentType,
+    ContextType
+  >;
+};
+
+export type ServiceResolvers<
+  ContextType = any,
+  ParentType = ResolversParentTypes["Service"]
+> = {
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  category?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  thumbnail?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  image?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  homepage?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  iosAppStoreUrl?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  androidPlayStoreUrl?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  memo?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  products?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes["Product"]>>>,
+    ParentType,
+    ContextType
+  >;
+  reviews?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes["Review"]>>>,
+    ParentType,
+    ContextType
+  >;
+  subOption?: Resolver<
+    Maybe<ResolversTypes["SubOption"]>,
+    ParentType,
+    ContextType
+  >;
+  createdAt?: Resolver<
+    Maybe<ResolversTypes["DateTime"]>,
+    ParentType,
+    ContextType
+  >;
+  updatedAt?: Resolver<
+    Maybe<ResolversTypes["DateTime"]>,
+    ParentType,
+    ContextType
+  >;
+  deletedAt?: Resolver<
     Maybe<ResolversTypes["DateTime"]>,
     ParentType,
     ContextType
@@ -482,6 +720,11 @@ export type SubscriptionResolvers<
 > = {
   userAdded?: SubscriptionResolver<
     Maybe<ResolversTypes["User"]>,
+    ParentType,
+    ContextType
+  >;
+  serviceAdded?: SubscriptionResolver<
+    Maybe<ResolversTypes["Service"]>,
     ParentType,
     ContextType
   >;
@@ -575,8 +818,10 @@ export type Resolvers<ContextType = any> = {
   DateTime?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
   Notification?: NotificationResolvers<ContextType>;
+  Product?: ProductResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Review?: ReviewResolvers<ContextType>;
+  Service?: ServiceResolvers<ContextType>;
   SubOption?: SubOptionResolvers<ContextType>;
   Subscription?: SubscriptionResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

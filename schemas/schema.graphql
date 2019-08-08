@@ -1,5 +1,6 @@
 # import User from "user.graphql"
 # import Notification from "notification.graphql"
+# import Service from "service.graphql"
 
 input UserCreateInput {
   email: String
@@ -26,6 +27,10 @@ input SocialUserCreateInput {
 type Query {
   user(id: ID!): User!
   users: [User!]!
+  service(id: ID!): Service!
+  services: [Service!]!
+  product: Product!
+  products: [Product!]!
 }
 
 type Mutation {
@@ -33,8 +38,15 @@ type Mutation {
   signInGoogle(socialUser: SocialUserCreateInput!): AuthPayload
   signInFacebook(socialUser: SocialUserCreateInput!): AuthPayload
   addPushToken(token: String!, userId: String!, device: String!, os: String): Notification
+  createService(id: ID!): Service!
+  updateService(id: ID!): Service!
+  deleteService(id: ID!): Service!
+  createProduct(id: ID!): Product!
+  updateProduct(id: ID!): Product!
+  deleteProduct(id: ID!): Product!
 }
 
 type Subscription {
   userAdded: User
+  serviceAdded: Service
 }
