@@ -11,8 +11,32 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  Date: any;
   DateTime: any;
+  Date: any;
+};
+
+export type Admin = {
+  __typename?: "Admin";
+  id: Scalars["ID"];
+  email: Scalars["String"];
+  name?: Maybe<Scalars["String"]>;
+  privilege: Privilege;
+  created: Scalars["DateTime"];
+  updated: Scalars["DateTime"];
+  deleted?: Maybe<Scalars["DateTime"]>;
+};
+
+export type AdminAuthPayload = {
+  __typename?: "AdminAuthPayload";
+  token: Scalars["String"];
+  admin: Admin;
+};
+
+export type AdminCreateInput = {
+  email: Scalars["String"];
+  password: Scalars["String"];
+  name: Scalars["String"];
+  privilege?: Maybe<Privilege>;
 };
 
 export type Admin = {
@@ -64,8 +88,6 @@ export type Mutation = {
   __typename?: "Mutation";
   signInAdmin?: Maybe<Admin>;
   signUp: AuthPayload;
-  signInGoogle?: Maybe<AuthPayload>;
-  signInFacebook?: Maybe<AuthPayload>;
   addPushToken?: Maybe<Notification>;
   createService: Service;
   updateService: Service;
@@ -84,12 +106,8 @@ export type MutationSignUpArgs = {
   user: UserCreateInput;
 };
 
-export type MutationSignInGoogleArgs = {
-  socialUser: SocialUserCreateInput;
-};
-
-export type MutationSignInFacebookArgs = {
-  socialUser: SocialUserCreateInput;
+export type MutationSignUpArgs = {
+  user: UserCreateInput;
 };
 
 export type MutationAddPushTokenArgs = {
@@ -197,12 +215,21 @@ export type ProductUpdateInput = {
 
 export type Query = {
   __typename?: "Query";
+  admin: Admin;
+  admins: Array<Admin>;
   user: User;
   users: Array<User>;
   service: Service;
   services: Array<Service>;
   product: Product;
   products: Array<Product>;
+  signInAdmin?: Maybe<AdminAuthPayload>;
+  signInGoogle?: Maybe<AuthPayload>;
+  signInFacebook?: Maybe<AuthPayload>;
+};
+
+export type QueryAdminArgs = {
+  id: Scalars["ID"];
 };
 
 export type QueryUserArgs = {
@@ -211,6 +238,18 @@ export type QueryUserArgs = {
 
 export type QueryServiceArgs = {
   id: Scalars["ID"];
+};
+
+export type QuerySignInAdminArgs = {
+  admin: AdminCreateInput;
+};
+
+export type QuerySignInGoogleArgs = {
+  socialUser: SocialUserCreateInput;
+};
+
+export type QuerySignInFacebookArgs = {
+  socialUser: SocialUserCreateInput;
 };
 
 export type Review = {
@@ -295,6 +334,7 @@ export type SubOptionCreateInput = {
 
 export type Subscription = {
   __typename?: "Subscription";
+  adminAdded?: Maybe<Admin>;
   userAdded?: Maybe<User>;
   serviceAdded?: Maybe<Service>;
   serviceUpdated?: Maybe<Service>;
@@ -420,13 +460,15 @@ export type DirectiveResolverFn<
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars["ID"]>;
-  User: ResolverTypeWrapper<User>;
+  Admin: ResolverTypeWrapper<Admin>;
   String: ResolverTypeWrapper<Scalars["String"]>;
+  Privilege: Privilege;
+  DateTime: ResolverTypeWrapper<Scalars["DateTime"]>;
+  User: ResolverTypeWrapper<User>;
   Date: ResolverTypeWrapper<Scalars["Date"]>;
   Gender: Gender;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
   Notification: ResolverTypeWrapper<Notification>;
-  DateTime: ResolverTypeWrapper<Scalars["DateTime"]>;
   CustomService: ResolverTypeWrapper<CustomService>;
   Float: ResolverTypeWrapper<Scalars["Float"]>;
   Currency: Currency;
@@ -437,6 +479,10 @@ export type ResolversTypes = {
   Review: ResolverTypeWrapper<Review>;
   Service: ResolverTypeWrapper<Service>;
   Product: ResolverTypeWrapper<Product>;
+  AdminCreateInput: AdminCreateInput;
+  AdminAuthPayload: ResolverTypeWrapper<AdminAuthPayload>;
+  SocialUserCreateInput: SocialUserCreateInput;
+  AuthPayload: ResolverTypeWrapper<AuthPayload>;
   Mutation: ResolverTypeWrapper<{}>;
   Admin: ResolverTypeWrapper<Admin>;
   Privilege: Privilege;
@@ -456,13 +502,15 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Query: {};
   ID: Scalars["ID"];
-  User: User;
+  Admin: Admin;
   String: Scalars["String"];
+  Privilege: Privilege;
+  DateTime: Scalars["DateTime"];
+  User: User;
   Date: Scalars["Date"];
   Gender: Gender;
   Boolean: Scalars["Boolean"];
   Notification: Notification;
-  DateTime: Scalars["DateTime"];
   CustomService: CustomService;
   Float: Scalars["Float"];
   Currency: Currency;
@@ -473,6 +521,10 @@ export type ResolversParentTypes = {
   Review: Review;
   Service: Service;
   Product: Product;
+  AdminCreateInput: AdminCreateInput;
+  AdminAuthPayload: AdminAuthPayload;
+  SocialUserCreateInput: SocialUserCreateInput;
+  AuthPayload: AuthPayload;
   Mutation: {};
   Admin: Admin;
   Privilege: Privilege;
@@ -589,19 +641,13 @@ export type MutationResolvers<
     ResolversTypes["AuthPayload"],
     ParentType,
     ContextType,
+    MutationSignUpAdminArgs
+  >;
+  signUp?: Resolver<
+    ResolversTypes["AuthPayload"],
+    ParentType,
+    ContextType,
     MutationSignUpArgs
-  >;
-  signInGoogle?: Resolver<
-    Maybe<ResolversTypes["AuthPayload"]>,
-    ParentType,
-    ContextType,
-    MutationSignInGoogleArgs
-  >;
-  signInFacebook?: Resolver<
-    Maybe<ResolversTypes["AuthPayload"]>,
-    ParentType,
-    ContextType,
-    MutationSignInFacebookArgs
   >;
   addPushToken?: Resolver<
     Maybe<ResolversTypes["Notification"]>,
@@ -715,6 +761,13 @@ export type QueryResolvers<
   ContextType = any,
   ParentType = ResolversParentTypes["Query"]
 > = {
+  admin?: Resolver<
+    ResolversTypes["Admin"],
+    ParentType,
+    ContextType,
+    QueryAdminArgs
+  >;
+  admins?: Resolver<Array<ResolversTypes["Admin"]>, ParentType, ContextType>;
   user?: Resolver<
     ResolversTypes["User"],
     ParentType,
@@ -738,6 +791,24 @@ export type QueryResolvers<
     Array<ResolversTypes["Product"]>,
     ParentType,
     ContextType
+  >;
+  signInAdmin?: Resolver<
+    Maybe<ResolversTypes["AdminAuthPayload"]>,
+    ParentType,
+    ContextType,
+    QuerySignInAdminArgs
+  >;
+  signInGoogle?: Resolver<
+    Maybe<ResolversTypes["AuthPayload"]>,
+    ParentType,
+    ContextType,
+    QuerySignInGoogleArgs
+  >;
+  signInFacebook?: Resolver<
+    Maybe<ResolversTypes["AuthPayload"]>,
+    ParentType,
+    ContextType,
+    QuerySignInFacebookArgs
   >;
 };
 
@@ -846,6 +917,11 @@ export type SubscriptionResolvers<
   ContextType = any,
   ParentType = ResolversParentTypes["Subscription"]
 > = {
+  adminAdded?: SubscriptionResolver<
+    Maybe<ResolversTypes["Admin"]>,
+    ParentType,
+    ContextType
+  >;
   userAdded?: SubscriptionResolver<
     Maybe<ResolversTypes["User"]>,
     ParentType,

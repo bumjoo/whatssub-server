@@ -9,6 +9,11 @@ enum Privilege {
   ADMIN, MEMBER, VIEWER,
 }
 
+type AdminAuthPayload {
+  token: String!
+  admin: Admin!
+}
+
 type Admin {
   id: ID!
   email: String!
@@ -23,6 +28,6 @@ type Admin {
 input AdminCreateInput {
   email: String!
   password: String!
-  name: String
-  privilege: Privilege!
+  name: String!
+  privilege: Privilege
 }

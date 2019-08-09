@@ -6,22 +6,25 @@
 # import Product from "product.graphql"
 
 type Query {
+  admin(id: ID!): Admin!
+  admins: [Admin!]!
   user(id: ID!): User!
   users: [User!]!
   service(id: ID!): Service!
   services: [Service!]!
   product: Product!
   products: [Product!]!
+  signInAdmin(admin: AdminCreateInput!): AdminAuthPayload
+  signInGoogle(socialUser: SocialUserCreateInput!): AuthPayload
+  signInFacebook(socialUser: SocialUserCreateInput!): AuthPayload
 }
 
 type Mutation {
-  signInAdmin(email: String!, password: String!): Admin
+  signUpAdmin(admin: AdminCreateInput!): AdminAuthPayload
   signUp(user: UserCreateInput!): AuthPayload!
-  signInGoogle(socialUser: SocialUserCreateInput!): AuthPayload
-  signInFacebook(socialUser: SocialUserCreateInput!): AuthPayload
-  addPushToken(notification: NotificationCreateInput!): Notification
-  createService(service: ServiceCreateInput!, subOption: SubOptionCreateInput): Service!
-  updateService(service: ServiceUpdateInput!, subOption: SubOptionCreateInput): Service!
+  addPushToken(token: String!, userId: String!, device: String!, os: String): Notification
+  createService(id: ID!): Service!
+  updateService(id: ID!): Service!
   deleteService(id: ID!): Service!
   createProduct(product: ProductCreateInput!, subOption: SubOptionCreateInput): Product!
   updateProduct(product: ProductUpdateInput!, subOption: SubOptionCreateInput): Product!
@@ -29,6 +32,7 @@ type Mutation {
 }
 
 type Subscription {
+  adminAdded: Admin
   userAdded: User
   serviceAdded: Service
   serviceUpdated: Service
