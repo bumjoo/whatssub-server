@@ -1,5 +1,6 @@
 import { DataTypes, Model, STRING, TEXT, UUID, UUIDV4 } from 'sequelize';
 
+import ServiceGroup from './ServiceGroup';
 import sequelize from '../db';
 
 class Service extends Model {};
@@ -35,5 +36,8 @@ Service.init({
   // updatedAt: 'updated',
   paranoid: true,
 });
+
+ServiceGroup.hasMany(Service);
+Service.belongsTo(ServiceGroup);
 
 export default Service;

@@ -81,9 +81,6 @@ export type Mutation = {
   deleteService: Service;
   createServiceGroup: ServiceGroup;
   updateServiceGroup: ServiceGroup;
-  createServiceGroupRating: ServiceGroupRating;
-  updateServiceGroupRating: ServiceGroupRating;
-  deleteServiceGroupRating: ServiceGroupRating;
   deleteServiceGroup: ServiceGroup;
   createProduct: Product;
   updateProduct: Product;
@@ -116,18 +113,6 @@ export type MutationCreateServiceGroupArgs = {
 
 export type MutationUpdateServiceGroupArgs = {
   serviceGroup: ServiceGroupCreateInput;
-};
-
-export type MutationCreateServiceGroupRatingArgs = {
-  serviceGroupRating: ServiceGroupRatingCreateInput;
-};
-
-export type MutationUpdateServiceGroupRatingArgs = {
-  serviceGroupRating: ServiceGroupRatingCreateInput;
-};
-
-export type MutationDeleteServiceGroupRatingArgs = {
-  id: Scalars["ID"];
 };
 
 export type MutationDeleteServiceGroupArgs = {
@@ -238,8 +223,6 @@ export type Query = {
   services: Array<Service>;
   serviceGroup: ServiceGroup;
   serviceGroups: Array<ServiceGroup>;
-  serviceGroupRating: ServiceGroupRating;
-  serviceGroupRatings: Array<ServiceGroupRating>;
   product: Product;
   products: Array<Product>;
   signInGoogle?: Maybe<AuthPayload>;
@@ -263,10 +246,6 @@ export type QueryServiceArgs = {
 };
 
 export type QueryServiceGroupArgs = {
-  id: Scalars["ID"];
-};
-
-export type QueryServiceGroupRatingArgs = {
   id: Scalars["ID"];
 };
 
@@ -329,20 +308,6 @@ export type ServiceGroup = {
 
 export type ServiceGroupCreateInput = {
   name: Scalars["String"];
-};
-
-export type ServiceGroupRating = {
-  __typename?: "ServiceGroupRating";
-  id: Scalars["ID"];
-  service?: Maybe<Array<Maybe<Service>>>;
-  serviceGroup?: Maybe<Array<Maybe<ServiceGroup>>>;
-  createdAt?: Maybe<Scalars["DateTime"]>;
-  updatedAt?: Maybe<Scalars["DateTime"]>;
-};
-
-export type ServiceGroupRatingCreateInput = {
-  service: Scalars["ID"];
-  serviceGroup: Scalars["ID"];
 };
 
 export type ServiceUpdateInput = {
@@ -535,7 +500,6 @@ export type ResolversTypes = {
   Service: ResolverTypeWrapper<Service>;
   Product: ResolverTypeWrapper<Product>;
   ServiceGroup: ResolverTypeWrapper<ServiceGroup>;
-  ServiceGroupRating: ResolverTypeWrapper<ServiceGroupRating>;
   SocialUserCreateInput: SocialUserCreateInput;
   AuthPayload: ResolverTypeWrapper<AuthPayload>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -543,7 +507,6 @@ export type ResolversTypes = {
   SubOptionCreateInput: SubOptionCreateInput;
   ServiceUpdateInput: ServiceUpdateInput;
   ServiceGroupCreateInput: ServiceGroupCreateInput;
-  ServiceGroupRatingCreateInput: ServiceGroupRatingCreateInput;
   ProductCreateInput: ProductCreateInput;
   ProductUpdateInput: ProductUpdateInput;
   UserCreateInput: UserCreateInput;
@@ -577,7 +540,6 @@ export type ResolversParentTypes = {
   Service: Service;
   Product: Product;
   ServiceGroup: ServiceGroup;
-  ServiceGroupRating: ServiceGroupRating;
   SocialUserCreateInput: SocialUserCreateInput;
   AuthPayload: AuthPayload;
   Mutation: {};
@@ -585,7 +547,6 @@ export type ResolversParentTypes = {
   SubOptionCreateInput: SubOptionCreateInput;
   ServiceUpdateInput: ServiceUpdateInput;
   ServiceGroupCreateInput: ServiceGroupCreateInput;
-  ServiceGroupRatingCreateInput: ServiceGroupRatingCreateInput;
   ProductCreateInput: ProductCreateInput;
   ProductUpdateInput: ProductUpdateInput;
   UserCreateInput: UserCreateInput;
@@ -727,24 +688,6 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     MutationUpdateServiceGroupArgs
-  >;
-  createServiceGroupRating?: Resolver<
-    ResolversTypes["ServiceGroupRating"],
-    ParentType,
-    ContextType,
-    MutationCreateServiceGroupRatingArgs
-  >;
-  updateServiceGroupRating?: Resolver<
-    ResolversTypes["ServiceGroupRating"],
-    ParentType,
-    ContextType,
-    MutationUpdateServiceGroupRatingArgs
-  >;
-  deleteServiceGroupRating?: Resolver<
-    ResolversTypes["ServiceGroupRating"],
-    ParentType,
-    ContextType,
-    MutationDeleteServiceGroupRatingArgs
   >;
   deleteServiceGroup?: Resolver<
     ResolversTypes["ServiceGroup"],
@@ -894,17 +837,6 @@ export type QueryResolvers<
     ParentType,
     ContextType
   >;
-  serviceGroupRating?: Resolver<
-    ResolversTypes["ServiceGroupRating"],
-    ParentType,
-    ContextType,
-    QueryServiceGroupRatingArgs
-  >;
-  serviceGroupRatings?: Resolver<
-    Array<ResolversTypes["ServiceGroupRating"]>,
-    ParentType,
-    ContextType
-  >;
   product?: Resolver<ResolversTypes["Product"], ParentType, ContextType>;
   products?: Resolver<
     Array<ResolversTypes["Product"]>,
@@ -1015,33 +947,6 @@ export type ServiceGroupResolvers<
     ContextType
   >;
   deletedAt?: Resolver<
-    Maybe<ResolversTypes["DateTime"]>,
-    ParentType,
-    ContextType
-  >;
-};
-
-export type ServiceGroupRatingResolvers<
-  ContextType = any,
-  ParentType = ResolversParentTypes["ServiceGroupRating"]
-> = {
-  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
-  service?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes["Service"]>>>,
-    ParentType,
-    ContextType
-  >;
-  serviceGroup?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes["ServiceGroup"]>>>,
-    ParentType,
-    ContextType
-  >;
-  createdAt?: Resolver<
-    Maybe<ResolversTypes["DateTime"]>,
-    ParentType,
-    ContextType
-  >;
-  updatedAt?: Resolver<
     Maybe<ResolversTypes["DateTime"]>,
     ParentType,
     ContextType
@@ -1217,7 +1122,6 @@ export type Resolvers<ContextType = any> = {
   Review?: ReviewResolvers<ContextType>;
   Service?: ServiceResolvers<ContextType>;
   ServiceGroup?: ServiceGroupResolvers<ContextType>;
-  ServiceGroupRating?: ServiceGroupRatingResolvers<ContextType>;
   SubOption?: SubOptionResolvers<ContextType>;
   Subscription?: SubscriptionResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

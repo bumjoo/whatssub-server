@@ -13,7 +13,7 @@ const resolver: Resolvers = {
       if (!user) throw new AuthenticationError('User is not logged in');
       return models.ServiceGroup.findAll();
     },
-    service: (_, args, { user, models }) => {
+    serviceGroup: (_, args, { user, models }) => {
       if (!user) throw new AuthenticationError('User is not logged in');
       return models.ServiceGroup.findOne({ where: args });
     },

@@ -4,7 +4,6 @@
 # import SubOption from "sub_option.graphql"
 # import Service from "service.graphql"
 # import ServiceGroup from "service_group.graphql"
-# import ServiceGroupRating from "service_group_rating.graphql"
 # import Product from "product.graphql"
 
 type Query {
@@ -19,8 +18,6 @@ type Query {
   services: [Service!]!
   serviceGroup(id: ID!): ServiceGroup!
   serviceGroups: [ServiceGroup!]!
-  serviceGroupRating(id: ID!): ServiceGroupRating!
-  serviceGroupRatings: [ServiceGroupRating!]!
   product: Product!
   products: [Product!]!
   signInGoogle(socialUser: SocialUserCreateInput!): AuthPayload
@@ -35,9 +32,6 @@ type Mutation {
   deleteService(id: ID!): Service!
   createServiceGroup(serviceGroup: ServiceGroupCreateInput!): ServiceGroup!
   updateServiceGroup(serviceGroup: ServiceGroupCreateInput!): ServiceGroup!
-  createServiceGroupRating(serviceGroupRating: ServiceGroupRatingCreateInput!): ServiceGroupRating!
-  updateServiceGroupRating(serviceGroupRating: ServiceGroupRatingCreateInput!): ServiceGroupRating!
-  deleteServiceGroupRating(id: ID!): ServiceGroupRating!
   deleteServiceGroup(id: ID!): ServiceGroup!
   createProduct(product: ProductCreateInput!, subOption: SubOptionCreateInput): Product!
   updateProduct(product: ProductUpdateInput!, subOption: SubOptionCreateInput): Product!
