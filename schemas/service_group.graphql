@@ -1,0 +1,19 @@
+# import Service from "service.graphql"
+scalar DateTime
+
+type ServiceGroup {
+  id: ID!
+  name: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+input ServiceGroupCreateInput {
+  name: String!
+}
+
+input ServiceGroupUpdateInput {
+  id: ID!
+  name: String!
+}

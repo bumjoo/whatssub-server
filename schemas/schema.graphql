@@ -3,32 +3,48 @@
 # import Notification from "notification.graphql"
 # import SubOption from "sub_option.graphql"
 # import Service from "service.graphql"
+# import ServiceGroup from "service_group.graphql"
+# import ServiceGroupRating from "service_group_rating.graphql"
 # import Product from "product.graphql"
 
 type Query {
+  # Admin
   admin(id: ID!): Admin!
   admins: [Admin!]!
-  user(id: ID!): User!
   users: [User!]!
+  signInAdmin(admin: AdminCreateInput!): AdminAuthPayload
+  # User
+  user(id: ID!): User!
   service(id: ID!): Service!
   services: [Service!]!
+  serviceGroup(id: ID!): ServiceGroup!
+  serviceGroups: [ServiceGroup!]!
+  serviceGroupRating(id: ID!): ServiceGroupRating!
+  serviceGroupRatings: [ServiceGroupRating!]!
   product: Product!
   products: [Product!]!
-  signInAdmin(admin: AdminCreateInput!): AdminAuthPayload
   signInGoogle(socialUser: SocialUserCreateInput!): AuthPayload
   signInFacebook(socialUser: SocialUserCreateInput!): AuthPayload
 }
 
 type Mutation {
+  # Admin
   signUpAdmin(admin: AdminCreateInput!): AdminAuthPayload
-  signUp(user: UserCreateInput!): AuthPayload!
-  addPushToken(token: String!, userId: String!, device: String!, os: String): Notification
-  createService(id: ID!): Service!
-  updateService(id: ID!): Service!
+  createService(service: ServiceCreateInput!, subOption: SubOptionCreateInput): Service!
+  updateService(service: ServiceUpdateInput!, subOption: SubOptionCreateInput): Service!
   deleteService(id: ID!): Service!
+  createServiceGroup(serviceGroup: ServiceGroupCreateInput!): ServiceGroup!
+  updateServiceGroup(serviceGroup: ServiceGroupCreateInput!): ServiceGroup!
+  createServiceGroupRating(serviceGroupRating: ServiceGroupRatingCreateInput!): ServiceGroupRating!
+  updateServiceGroupRating(serviceGroupRating: ServiceGroupRatingCreateInput!): ServiceGroupRating!
+  deleteServiceGroupRating(id: ID!): ServiceGroupRating!
+  deleteServiceGroup(id: ID!): ServiceGroup!
   createProduct(product: ProductCreateInput!, subOption: SubOptionCreateInput): Product!
   updateProduct(product: ProductUpdateInput!, subOption: SubOptionCreateInput): Product!
   deleteProduct(id: ID!): Product!
+  # User
+  signUp(user: UserCreateInput!): AuthPayload!
+  addPushToken(notification: NotificationCreateInput!): Notification
 }
 
 type Subscription {
